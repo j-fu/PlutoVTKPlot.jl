@@ -1,6 +1,5 @@
 module PlutoVTKPlot
 using PlutoCanvasPlot
-using UUIDs
 using Colors
 using ColorSchemes
 
@@ -20,8 +19,6 @@ mutable struct VTKPlot
     w::Float64
     h::Float64
 
-    # uuid for identifying html element
-    uuid::UUID
     VTKPlot(::Nothing)=new()
 end
 
@@ -35,7 +32,6 @@ and given "world coordinate" range.
 """
 function VTKPlot(;resolution=(300,300))
     p=VTKPlot(nothing)
-    p.uuid=uuid1()
     p.jsdict=Dict{String,Any}("cmdcount" => 0)
     p.w=resolution[1]
     p.h=resolution[2]
@@ -124,12 +120,12 @@ function Base.show(io::IO, ::MIME"text/html", p::VTKPlot)
     vtkplot = read(joinpath(@__DIR__, "..", "assets", "vtkplot.js"), String)
     result="""
     <script type="text/javascript" src="https://unpkg.com/vtk.js@18"></script>
+    <span style= "width: $(p.w)px; height: $(p.h)px;"></span>
     <script>
     $(vtkplot)
     const jsdict = $(Main.PlutoRunner.publish_to_js(p.jsdict))
-    vtkplot("$(p.uuid)",jsdict,invalidation)        
+    vtkplot(currentScript.previousElementSibling,jsdict,invalidation)        
     </script>
-    <div id="$(p.uuid)" style= "width: $(p.w)px; height: $(p.h)px;"></div>
     """
     write(io,result)
 end

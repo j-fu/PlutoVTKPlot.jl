@@ -7,7 +7,7 @@ function setinteractorstyle(interactor, cam)
 }
 
 
-function vtkplot(uuid,jsdict,invalidation)
+function vtkplot(rootContainer,jsdict,invalidation)
 {
     var renderWindow = vtk.Rendering.Core.vtkRenderWindow.newInstance();
     var renderer = vtk.Rendering.Core.vtkRenderer.newInstance();
@@ -25,7 +25,6 @@ function vtkplot(uuid,jsdict,invalidation)
     interactor.setInteractorStyle(vtk.Interaction.Style.vtkInteractorStyleTrackballCamera.newInstance());
 
     //ensure to plot to the right place
-    var rootContainer = document.getElementById(uuid);
     openGlRenderWindow.setContainer(rootContainer);
     const dims = rootContainer.getBoundingClientRect();	
     openGlRenderWindow.setSize(dims.width, dims.height);
