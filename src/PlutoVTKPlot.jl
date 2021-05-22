@@ -120,7 +120,7 @@ function Base.show(io::IO, ::MIME"text/html", p::VTKPlot)
     vtkplot = read(joinpath(@__DIR__, "..", "assets", "vtkplot.js"), String)
     result="""
     <script type="text/javascript" src="https://unpkg.com/vtk.js@18"></script>
-    <span style= "width: $(p.w)px; height: $(p.h)px;"></span>
+    <div style= "width: $(p.w)px; height: $(p.h)px;"></div>
     <script>
     $(vtkplot)
     const jsdict = $(Main.PlutoRunner.publish_to_js(p.jsdict))
