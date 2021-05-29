@@ -1,6 +1,8 @@
 PlutoVTKPlot.jl
 ==================
 
+**Merged into [PlutoVista.jl](https://github.com/j-fu/PlutoVista.jl)**
+
 
 Code design study for a plot library for Pluto notebooks based on [vtk.js](https://kitware.github.io/vtk-js/index.html)
 This uses the Pluto [💁 API to make objects available inside JS](https://github.com/fonsp/Pluto.jl/pull/1124)
